@@ -17,3 +17,26 @@ function addBookToLibrary(title, author, date) {
 }
 
 addBookToLibrary("Dune", "Frank Herbert", "1967");
+addBookToLibrary("Dune: Messiah", "F Herbert", "1977");
+addBookToLibrary("A Game of Thrones", "GRR Martin", "1994");
+addBookToLibrary("A Clash of Kings", "George RR Martin", "2000");
+
+const bookDisplay = document.querySelector(".bookDisplay");
+
+function createBookPropElement(tableRow, bookObj, prop){
+    let tableCell = document.createElement("td");
+    tableCell.classList.add(prop);
+    tableCell.textContent = bookObj[prop];
+    tableRow.append(tableCell);
+}
+
+function createBookElement(bookObj){
+    let tableRow = document.createElement("tr");
+    tableRow.setAttribute('id', bookObj.id);
+    createBookPropElement(tableRow, bookObj, "title");
+    createBookPropElement(tableRow, bookObj, "author");
+    createBookPropElement(tableRow, bookObj, "date");
+    bookDisplay.append(tableRow);
+}
+
+myLibrary.forEach(book => createBookElement(book));
