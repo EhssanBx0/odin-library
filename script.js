@@ -36,7 +36,13 @@ function createBookElement(bookObj){
     createBookPropElement(tableRow, bookObj, "title");
     createBookPropElement(tableRow, bookObj, "author");
     createBookPropElement(tableRow, bookObj, "date");
-    bookDisplay.append(tableRow);
+    return tableRow
 }
 
-myLibrary.forEach(book => createBookElement(book));
+function displayAllBooks(library){
+    library.forEach(book => {
+        bookDisplay.appendChild(createBookElement(book))
+    });
+}
+
+displayAllBooks(myLibrary);
