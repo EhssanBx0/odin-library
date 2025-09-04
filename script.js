@@ -6,6 +6,7 @@ function Book(title, author, date) {
     this.title = title;
     this.author = author;
     this.date = date;
+    this.read = false;
     this.display = false;
 }
 
@@ -31,7 +32,7 @@ function createBookPropElement(tableRow, bookObj, prop){
     tableRow.append(tableCell);
 }
 
-function createDeleteBtn(tableRow, bookObj){
+function createDeleteBtn(tableRow){
     let deleteCell = document.createElement("td");
     let deleteBtn = document.createElement("button");
     deleteBtn.textContent = "Delete";
@@ -53,14 +54,32 @@ function deleteBookFromLibrary(bookId){
     myLibrary.splice(deleteIndex, 1);
 }
 
+function addReadCheckbox(tableRow){
+    let readCheckCell = document.createElement("td");
+    let readCheckBox = document.createElement("input");
+    readCheckBox.setAttribute("type", "checkbox");
+    readCheckBox.addEventListener("click", toggleRead);
+    readCheckCell.append(readCheckBox);
+    tableRow.append(readCheckCell);
+}
+
+function toggleRead(event){
+    let readBook = event.target.parentNode.parentNode;
+    let readBookID = readBook.dataset.id;
+    myLibrary.forEach(book => {
+        if (book.id !== readBookID) return
+        book.read = !book.read
+    });
+}
+
 function createBookElement(bookObj){
     let tableRow = document.createElement("tr");
     tableRow.setAttribute('data-id', bookObj.id);
     createBookPropElement(tableRow, bookObj, "title");
     createBookPropElement(tableRow, bookObj, "author");
     createBookPropElement(tableRow, bookObj, "date");
-    createDeleteBtn(tableRow, bookObj);
-    
+    createDeleteBtn(tableRow);
+    addReadCheckbox(tableRow);
     return tableRow
 }
 
