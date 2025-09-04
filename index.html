@@ -8,6 +8,25 @@
     <title>Document</title>
 </head>
 <body>
+    <button class="btn" id="openModalBtn">New Book</button>
+    <dialog class="newBookModal">
+        <form id="newBookForm">
+            <label for="bookTitle">
+                Title:
+                <input type="text" id="bookTitle">
+            </label>
+            <label for="bookAuthor">
+                Author:
+                <input type="text" id="bookAuthor">
+            </label>
+            <label for="bookDate">
+                Date:
+                <input type="text" id="bookDate">
+            </label>
+            <button class="btn" id="confirmBtn">Confirm</button>
+            <button class="btn" id="closeModalBtn">Close</button>
+        </form>
+    </dialog>
     <table class="bookDisplay">
         <tr>
             <th>Title</th>
