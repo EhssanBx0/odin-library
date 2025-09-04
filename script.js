@@ -31,12 +31,36 @@ function createBookPropElement(tableRow, bookObj, prop){
     tableRow.append(tableCell);
 }
 
+function createDeleteBtn(tableRow, bookObj){
+    let deleteCell = document.createElement("td");
+    let deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "Delete";
+    deleteBtn.addEventListener("click", removeBook);
+    deleteCell.append(deleteBtn);
+    tableRow.append(deleteCell);
+}
+
+function removeBook(event){
+    let deletedElement = event.target.parentNode.parentNode;
+    let deletedId = deletedElement.dataset.id;
+    bookDisplay.removeChild(deletedElement);
+    deleteBookFromLibrary(deletedId);
+}
+
+function deleteBookFromLibrary(bookId){
+    let deleteIndex = myLibrary.findIndex(book => book.id === bookId)
+    console.log(deleteIndex);
+    myLibrary.splice(deleteIndex, 1);
+}
+
 function createBookElement(bookObj){
     let tableRow = document.createElement("tr");
     tableRow.setAttribute('data-id', bookObj.id);
     createBookPropElement(tableRow, bookObj, "title");
     createBookPropElement(tableRow, bookObj, "author");
     createBookPropElement(tableRow, bookObj, "date");
+    createDeleteBtn(tableRow, bookObj);
+    
     return tableRow
 }
 
@@ -56,7 +80,6 @@ function updateDisplay(library) {
         book.display = true;
     })
 }
-
 
 const newBookModal = document.querySelector(".newBookModal");
 
